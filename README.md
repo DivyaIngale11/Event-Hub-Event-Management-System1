@@ -1,7 +1,7 @@
-EventHub – Event Management Web Application
-1. Project Overview
+<h1>EventHub – Event Management Web Application<h1>
+<h2>1. Project Overview<h2>
 
-EventHub is a full-stack web application that allows users to explore and book events happening in their surroundings. Users can discover multiple events based on their location, view event details, and make bookings directly through the platform.
+<p>EventHub is a full-stack web application that allows users to explore and book events happening in their surroundings. Users can discover multiple events based on their location, view event details, and make bookings directly through the platform.
 
 Examples of events users can explore:
 
@@ -161,4 +161,4 @@ User profile and booking history.
 
 Event reviews and ratings.
 
-Pagination for large number of events. above add content in html  format add in readme file
+Pagination for large number of events. above add content in html  format add in readme file<p>
