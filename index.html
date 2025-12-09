@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Management - Home</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Hero section with dark overlay */
+      .hero {
+        position: relative;
+        background: url("https://images.unsplash.com/photo-1529156069898-49953e39b3ac")
+          center/cover no-repeat;
+        height: 70vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-shadow: 2px 2px 4px black;
+      }
+      .hero::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+      }
+      .hero > div {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+      }
+
+      /* Event card uniform styling */
+      .event-card {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+      .event-card img {
+        height: 180px;
+        object-fit: cover;
+      }
+      .event-card .card-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .event-card:hover {
+        transform: scale(1.03);
+        transition: 0.3s;
+      }
+
+      footer {
+        background: #111;
+        color: #eee;
+        padding: 30px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+      <a class="navbar-brand fw-bold" href="#">EventHub</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navMenu"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="#events">Events</a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="#"
+              data-bs-toggle="modal"
+              data-bs-target="#signupModal"
+              >Sign Up</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="#"
+              data-bs-toggle="modal"
+              data-bs-target="#loginModal"
+              >Login</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="admin-signup.html">Admin-SignUp</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="admin-login.html">Admin-Login</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div>
+        <h1 class="fw-bold display-4">Discover & Book Amazing Events</h1>
+        <p class="lead">
+          Explore concerts, tech conferences, festivals, workshops & more
+        </p>
+        <div class="mt-3">
+          <a href="#events" class="btn btn-primary btn-lg">Explore Events</a>
+          <button
+            class="btn btn-outline-light btn-lg"
+            data-bs-toggle="modal"
+            data-bs-target="#signupModal"
+          >
+            Sign Up
+          </button>
+          <button
+            class="btn btn-outline-light btn-lg"
+            data-bs-toggle="modal"
+            data-bs-target="#loginModal"
+          >
+            Login
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="container py-5" id="about">
+      <h2 class="text-center fw-bold mb-3">About EventHub</h2>
+      <p class="text-center w-75 mx-auto">
+        EventHub is your one-stop platform to explore and book the best events
+        happening around you. Whether you love tech summits, music concerts,
+        workshops, or cultural festivals, we help you find the perfect
+        experience with ease and convenience.
+      </p>
+    </section>
+
+    <!-- Upcoming Events Section -->
+    <section class="container py-5" id="events">
+      <h2 class="text-center mb-4 fw-bold">Upcoming Events</h2>
+      <div class="row g-4" id="eventsContainer"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center">
+      <p class="mb-0">© 2025 EventHub. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Sign Up Modal -->
+    <div
+      class="modal fade"
+      id="signupModal"
+      tabindex="-1"
+      aria-labelledby="signupModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title fw-bold" id="signupModalLabel">Sign Up</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="signupForm">
+              <div class="mb-3">
+                <label class="form-label">Full Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="signupName"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="signupEmail"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="signupPassword"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary w-100">
+                Sign Up
+              </button>
+            </form>
+            <div class="alert alert-success mt-3 d-none" id="signupSuccess">
+              Registration Successful!
+            </div>
+            <div class="alert alert-danger mt-3 d-none" id="signupError">
+              ⚠ Email already registered!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div
+      class="modal fade"
+      id="loginModal"
+      tabindex="-1"
+      aria-labelledby="loginModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title fw-bold" id="loginModalLabel">Login</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="loginForm">
+              <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="loginEmail"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="loginPassword"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Login</button>
+            </form>
+            <div class="alert alert-success mt-3 d-none" id="loginSuccess">
+              Login Successful!
+            </div>
+            <div class="alert alert-danger mt-3 d-none" id="loginError">
+              ⚠ Invalid email or password!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const events = [
+        {
+          id: 1,
+          title: "Tech Innovators Summit 2025",
+          date: "2025-01-25",
+          location: "Mumbai Exhibition Center",
+          image: "https://images.unsplash.com/photo-1551836022-4c4c79ecde51",
+          description:
+            "A mega tech conference featuring startups, AI talks, and product showcases.",
+        },
+        {
+          id: 2,
+          title: "Music Fiesta Nights",
+          date: "2025-02-10",
+          location: "Goa Beach Arena",
+          image: "https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf",
+          description: "A musical night with top DJs and live performers.",
+        },
+        {
+          id: 3,
+          title: "Art & Cultural Festival 2025",
+          date: "2025-03-05",
+          location: "Delhi Art Center",
+          image: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620",
+          description:
+            "A colorful showcase of art, culture, dance, and creativity.",
+        },
+        {
+          id: 4,
+          title: "Startup Pitch Marathon",
+          date: "2025-04-18",
+          location: "Bangalore Tech Hub",
+          image: "https://images.unsplash.com/photo-1556761175-b413da4baf72",
+          description: "Pitch your startup ideas to investors and incubators.",
+        },
+        {
+          id: 5,
+          title: "Food Carnival 2025",
+          date: "2025-05-12",
+          location: "Pune City Grounds",
+          image: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe",
+          description: "Taste delicacies from around the world in one place.",
+        },
+        {
+          id: 6,
+          title: "Health & Wellness Expo",
+          date: "2025-06-22",
+          location: "Chennai Expo Center",
+          image: "https://images.unsplash.com/photo-1516557070067-6f2821c87d24",
+          description:
+            "Workshops, fitness sessions, and wellness products all under one roof.",
+        },
+        {
+          id: 7,
+          title: "Film & Animation Fest",
+          date: "2025-07-15",
+          location: "Kolkata Cineplex",
+          image: "https://images.unsplash.com/photo-1495567720989-cebdbdd97913",
+          description: "Showcase of independent films and animation movies.",
+        },
+        {
+          id: 8,
+          title: "Fashion & Lifestyle Week",
+          date: "2025-08-05",
+          location: "Hyderabad Convention Center",
+          image: "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb",
+          description:
+            "Trendy fashion shows, designer collections, and lifestyle products.",
+        },
+      ];
+
+      function loadEvents() {
+        const container = document.getElementById("eventsContainer");
+        container.innerHTML = "";
+        events.forEach((ev) => {
+          container.innerHTML += `
+          <div class="col-md-3 d-flex">
+            <div class="card shadow event-card w-100">
+              <img src="${ev.image}" class="card-img-top" alt="Event Image" />
+              <div class="card-body">
+                <h5 class="card-title fw-bold">${ev.title}</h5>
+                <p><strong>Date:</strong> ${ev.date}</p>
+                <p><strong>Location:</strong> ${ev.location}</p>
+                <p>${ev.description}</p>
+                <button class="btn btn-primary w-100 mt-2" onclick="exploreEvent(${ev.id})">Explore</button>
+              </div>
+            </div>
+          </div>`;
+        });
+      }
+
+      function exploreEvent(id) {
+        const ev = events.find((e) => e.id === id);
+        localStorage.setItem("selectedEvent", JSON.stringify(ev));
+        window.location.href = "event-details.html";
+      }
+
+      window.onload = loadEvents;
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Sign Up - EventHub</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: #f8f9fa;
+      }
+      .container {
+        max-width: 500px;
+        margin: 100px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container shadow p-4 rounded bg-white">
+      <h2 class="text-center mb-4">Admin Sign Up</h2>
+      <form id="adminSignUpForm">
+        <div class="mb-3">
+          <label>Email</label
+          ><input
+            type="email"
+            class="form-control"
+            id="adminSignUpEmail"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label>Password</label
+          ><input
+            type="password"
+            class="form-control"
+            id="adminSignUpPassword"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-success w-100">Sign Up</button>
+      </form>
+      <p class="mt-3 text-center">
+        Already have an account? <a href="admin-login.html">Login</a>
+      </p>
+      <div class="alert alert-success mt-3 d-none" id="signupSuccess">
+        ✅ Admin registered successfully!
+      </div>
+      <div class="alert alert-danger mt-3 d-none" id="signupError">
+        ⚠ Admin already exists!
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("adminSignUpForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const email = document
+            .getElementById("adminSignUpEmail")
+            .value.trim();
+          const password = document.getElementById("adminSignUpPassword").value;
+          let admins = JSON.parse(localStorage.getItem("admins") || "[]");
+          if (admins.some((a) => a.email === email)) {
+            document.getElementById("signupError").classList.remove("d-none");
+            document.getElementById("signupSuccess").classList.add("d-none");
+          } else {
+            admins.push({ email, password });
+            localStorage.setItem("admins", JSON.stringify(admins));
+            document.getElementById("signupSuccess").classList.remove("d-none");
+            document.getElementById("signupError").classList.add("d-none");
+            setTimeout(() => (window.location.href = "admin-login.html"), 1500);
+          }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
